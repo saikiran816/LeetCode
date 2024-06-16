@@ -17,23 +17,12 @@ from typing import List
 
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        if val not in nums:
-            return len(nums)
-        if (len(set(nums)) == 1 and val in nums) or (len(nums) == 0):
-            return 0
-        i, j = 0, len(nums) - 1
-        idx_count = 0
-        while i <= j:
-            if nums[j] == val:
-                j -= 1
-                idx_count += 1
-                continue
-            if nums[i] == val:
-                nums[i], nums[j] = nums[j], nums[i]
-                j -= 1
-                idx_count += 1
-            i += 1
-        return len(nums) - idx_count
+        count = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[count] = nums[i]
+                count += 1
+        return count
 
 
 if __name__ == "__main__":
@@ -46,7 +35,7 @@ if __name__ == "__main__":
         ([2, 2, 2, 2], 2),
         ([2, 2, 3], 2),
     ]  # noqa
-    expected_output = [[2, 2], [0, 1, 4, 0, 3], [], [3, 2, 2, 3], [], [3]]  # noqa
+    expected_output = [[2, 2], [0, 1, 3, 0, 4], [], [3, 2, 2, 3], [], [3]]  # noqa
     actual_output = []
     for input in input_list:
         nums = input[0]
